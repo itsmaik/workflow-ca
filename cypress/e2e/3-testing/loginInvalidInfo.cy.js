@@ -1,6 +1,5 @@
 describe('User Authentication Flow', () => {
   beforeEach(() => {
-    // Assume the modal is automatically open on page load
     cy.visit('http://127.0.0.1:5500/index.html');
   });
 
@@ -16,13 +15,13 @@ describe('User Authentication Flow', () => {
       .first()
       .type('wrongpassword', { force: true });
 
-    // Click the login button to submit the form, use force if necessary
+    // Click the login button to submit the form
     cy.get('#loginModal button[type="submit"]')
       .contains('Login')
       .click({ force: true });
 
     // Check for the presence of an error message
-    cy.get('#loginModal .error-message') // Adjust selector based on your actual DOM
+    cy.get('#loginModal .error-message')
       .should('be.visible')
       .and('contain', 'Invalid credentials');
   });
