@@ -1,5 +1,9 @@
 # Workflow Project-CA
 
+[![pages-build-deployment](https://github.com/itsmaik/workflow-ca/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/itsmaik/workflow-ca/actions/workflows/pages/pages-build-deployment)
+
+[![Automated Unit Testing](https://github.com/itsmaik/workflow-ca/actions/workflows/unit-test.yml/badge.svg)](https://github.com/itsmaik/workflow-ca/actions/workflows/unit-test.yml)
+
 The purpose of this project is to put into practice and showcase the skills I've developed over my second year in Front-end Development studies, with a focus on creating workflow optimization and automated testing.
 
 ## Description
