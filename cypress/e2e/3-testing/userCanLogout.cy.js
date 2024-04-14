@@ -1,6 +1,6 @@
 describe('User Authentication Flow', () => {
   beforeEach(() => {
-    cy.visit('http://127.0.0.1:5500/index.html');
+    cy.visit('https://itsmaik.github.io/workflow-ca/');
   });
 
   it('allows the user to log in with valid credentials and log out', () => {
