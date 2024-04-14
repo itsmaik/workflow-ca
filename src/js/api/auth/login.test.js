@@ -2,9 +2,15 @@ import { login } from './login';
 import * as storage from '../../storage/index';
 import { headers } from '../headers';
 
+// Setting up environment variable
+beforeAll(() => {
+  process.env.API_PATH = 'https://nf-api.onrender.com/api/v1';
+});
+
 // Mocking the external modules
 jest.mock('../../storage/index', () => ({
   save: jest.fn(),
+  load: jest.fn(() => 'mocked-token'),
 }));
 
 global.fetch = jest.fn(() =>
@@ -16,8 +22,7 @@ global.fetch = jest.fn(() =>
 
 describe('login function', () => {
   beforeEach(() => {
-    fetch.mockClear();
-    storage.save.mockClear();
+    jest.clearAllMocks(); // Clear all mocks before each test
   });
 
   it('stores a token when provided with valid credentials', async () => {
@@ -25,20 +30,18 @@ describe('login function', () => {
     const password = 'password123';
     const result = await login(email, password);
 
+    // Construct the expected URL from the environment variable
+    const expectedUrl = `${process.env.API_PATH}/social/auth/login`;
+
     // Expect fetch to have been called with correct arguments
-    expect(fetch).toHaveBeenCalledWith(
-      `${process.env.API_PATH}/social/auth/login`,
-      {
-        method: 'post',
-        body: JSON.stringify({ email, password }),
-        headers: headers('application/json'),
-      },
-    );
+    expect(fetch).toHaveBeenCalledWith(expectedUrl, {
+      method: 'post',
+      body: JSON.stringify({ email, password }),
+      headers: headers('application/json'),
+    });
 
-    // Expect save to have been called to store the token
+    // Expect save to have been called to store the token and profile
     expect(storage.save).toHaveBeenCalledWith('token', 'mocked-token');
-
-    // Check if profile (without the token) is stored correctly
     expect(storage.save).toHaveBeenCalledWith('profile', { userId: 1 });
 
     // Expect the function to return the profile information (without token)
