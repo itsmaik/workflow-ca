@@ -1,6 +1,6 @@
 describe('User Authentication Flow', () => {
   beforeEach(() => {
-    cy.visit('http://127.0.0.1:5500/index.html');
+    cy.visit('https://itsmaik.github.io/workflow-ca/');
   });
 
   it('does not allow the user to log in with invalid credentials and shows an error message', () => {
